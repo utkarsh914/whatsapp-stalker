@@ -2,6 +2,7 @@ var csvContent = "data:text/csv;charset=utf-8,Name,From,To,Duration\n";
 var cameOnline = false;
 var stalking = false;
 var buttonAdded = false;
+var showNotif = false;
 var starttime;
 var endtime;
 var running = -1;
@@ -20,13 +21,26 @@ function f() {
 			let duration = `${parseInt(diff/60)} min and ${diff%60} sec`;
 			console.log(`${name}: ${time}, Went Offline`);
 			console.log(`Duration: ${duration}`);
-			csvContent += `${name},${new Date(starttime).toLocaleTimeString()},${new Date(endtime).toLocaleTimeString()},${duration}\n`
+			csvContent += `${name},${new Date(starttime).toLocaleTimeString()},${new Date(endtime).toLocaleTimeString()},${duration}\n`;
+			if (checkPermission()) {
+				let d = new Date(endtime);
+				let notif = new Notification(`${name} went offline`, {
+					icon: 'https://img.icons8.com/color/48/000000/whatsapp.png',
+					body: `Time: ${new Date(starttime).toLocaleTimeString()} to ${new Date(endtime).toLocaleDateString()}\n Duration: ${duration}`
+				});
+			}
 			return;
 		}
 		else if ((status.textContent==="online" || status.textContent==="typing…") && (cameOnline===false)){
 			cameOnline = true;
 			starttime = new Date().getTime();
 			console.log(`${name}: ${time}, Came online`);
+			if (checkPermission()) {
+				var notif = new Notification(`${name} came online`, {
+					icon: 'https://img.icons8.com/color/48/000000/whatsapp.png',
+					body: `Time: ${new Date(starttime).toLocaleTimeString()}, ${new Date(starttime).toLocaleDateString()}\n`
+				});
+			}
 		}
 	}
 	catch(err) { return }
@@ -44,6 +58,8 @@ function stalk() {
 	running = setInterval(f, 1000);
 	alert("Stalking!");
 	console.log("Stalking!");
+	alert("Provide permission if you want to get notifications when a user is online/offline.\n\nYou can turn notifications off if you don't want to recieve them");
+	checkPermission();
 	return running;
 }
 function getCSV(data) {
@@ -90,3 +106,19 @@ function putStopStalkButton() {
 	sideBar.appendChild(button);
 }
 stalk();
+
+function checkPermission() {
+	if (!("Notification"in window)) {
+		return false;
+	}
+	else if (Notification.permission === "granted") {
+		return true;
+	}
+	else if (Notification.permission !== 'denied') {
+		Notification.requestPermission(function(permission) {
+			if (permission === "granted") {
+				return true;
+			}
+		});
+	}
+}
