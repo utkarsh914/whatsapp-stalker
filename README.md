@@ -1,6 +1,5 @@
 # Whatsapp-Stalker
-<hr>
-#### How to use:
+## How to use:
 1. Open whatsapp web, connect to your whatsapp account
 2. Open browser console and paste the script in track.js
 3. Hit enter
