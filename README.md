@@ -1,5 +1,6 @@
 # Whatsapp-Stalker
 Track when people came online and went offline on WhatsApp Web
+It can track only a single target at a time. So, don't hop from one person's chat to another. Leave it open on target's only.
 
 ## How to use:
 1. Open whatsapp web, connect to your whatsapp account
