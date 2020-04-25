@@ -10,7 +10,7 @@ function f() {
 	try {
 		var dt = new Date();
 		var time = dt.toLocaleTimeString() + ', ' + dt.toLocaleDateString();
-		var name = document.querySelector("#main > header > div._5SiUq > div._16vzP > div > span").innerText;
+		var name = document.querySelector("#main > header > div._5SiUq > div._16vzP > div > span").textContent;
 		var status = document.querySelector("#main > header > div._5SiUq > div._3sgkv.Gd51Q > span");
 
 		if ((status===null) && (cameOnline===true)){
@@ -23,7 +23,7 @@ function f() {
 			csvContent += `${name},${new Date(starttime).toLocaleTimeString()},${new Date(endtime).toLocaleTimeString()},${duration}\n`
 			return;
 		}
-		else if ((status.innerText==="online" || status.innerText==="typing…") && (cameOnline===false)){
+		else if ((status.textContent==="online" || status.textContent==="typing…") && (cameOnline===false)){
 			cameOnline = true;
 			starttime = new Date().getTime();
 			console.log(`${name}: ${time}, Came online`);
@@ -82,11 +82,11 @@ function toggleStalk() {
 function putStopStalkButton() {
 	var button = document.createElement("button");
 	button.style.padding = "4px";
-	button.style.margin = "3px";
+	button.style.margin = "2px";
 	button.style.border = "1px solid black";
 	button.textContent = "Stop";
 	button.onclick = toggleStalk;
 	var sideBar = document.querySelector("#side > header");
 	sideBar.appendChild(button);
 }
-stalk()
+stalk();
