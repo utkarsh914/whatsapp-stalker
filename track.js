@@ -25,8 +25,8 @@ function f() {
 			if (checkPermission()) {
 				let d = new Date(endtime);
 				let notif = new Notification(`${name} went offline`, {
-					icon: 'https://img.icons8.com/color/48/000000/whatsapp.png',
-					body: `Time: ${new Date(starttime).toLocaleTimeString()} to ${new Date(endtime).toLocaleDateString()}\n Duration: ${duration}`
+					icon: 'https://img.icons8.com/ios-filled/50/000000/whatsapp.png',
+					body: `from ${new Date(starttime).toLocaleTimeString()} to ${new Date(endtime).toLocaleTimeString()}\n Duration: ${duration}`
 				});
 			}
 			return;
@@ -37,7 +37,7 @@ function f() {
 			console.log(`${name}: ${time}, Came online`);
 			if (checkPermission()) {
 				var notif = new Notification(`${name} came online`, {
-					icon: 'https://img.icons8.com/color/48/000000/whatsapp.png',
+					icon: 'https://img.icons8.com/ios-filled/50/000000/whatsapp.png',
 					body: `Time: ${new Date(starttime).toLocaleTimeString()}, ${new Date(starttime).toLocaleDateString()}\n`
 				});
 			}
@@ -52,6 +52,7 @@ function stalk() {
 		putCSVLink();
 		putStopStalkButton();
 		buttonAdded = true;
+		checkPermission();
 	}
 	}catch(e){}
 
@@ -59,7 +60,6 @@ function stalk() {
 	alert("Stalking!");
 	console.log("Stalking!");
 	alert("Provide permission if you want to get notifications when a user is online/offline.\n\nYou can turn notifications off if you don't want to recieve them");
-	checkPermission();
 	return running;
 }
 function getCSV(data) {
