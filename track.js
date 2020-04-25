@@ -84,7 +84,7 @@ function putStopStalkButton() {
 	button.style.padding = "4px";
 	button.style.margin = "3px";
 	button.style.border = "1px solid black";
-	button.textContent = "Stalk";
+	button.textContent = "Stop";
 	button.onclick = toggleStalk;
 	var sideBar = document.querySelector("#side > header");
 	sideBar.appendChild(button);
