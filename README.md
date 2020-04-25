@@ -9,7 +9,7 @@ Track when people came online and went offline on WhatsApp Web
 6. Script will log whenever person comes online or goes offline along with the online duration.
 7. Log will be shown on the console and can also be downloaded as csv.
 
-  <b>PS: Allow whatsApp web's notifications to receive a notification whenever target's status changes</b>
+    <b>PS: Allow whatsApp web's notifications to receive a notification whenever target's status changes</b>
 
 ## Optionally:
 You can use bookmark method for easier access.
