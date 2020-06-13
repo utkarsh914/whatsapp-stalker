@@ -1,3 +1,5 @@
+## If you're not okay with the script thing, I wrote a chrome extension too for this. [Go here](https://github.com/utkarsh914/whatsapp-stalker-chrome-extension)
+
 # Whatsapp-Stalker
 Track when people came online and went offline on WhatsApp Web
 It can track only a single target at a time. So, don't hop from one person's chat to another. Leave it open on target's only.
