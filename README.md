@@ -1,4 +1,4 @@
-## If you're not okay with the script thing, I wrote a chrome extension too for this. [Go here](https://github.com/utkarsh914/whatsapp-stalker-chrome-extension)
+## If you're not okay with the script thing, See chrome extension. [Go here](https://github.com/utkarsh914/whatsapp-stalker-chrome-extension)
 
 # Whatsapp-Stalker
 Track when people came online and went offline on WhatsApp Web
