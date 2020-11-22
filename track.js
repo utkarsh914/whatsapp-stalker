@@ -11,8 +11,8 @@ function f() {
 	try {
 		var dt = new Date();
 		var time = dt.toLocaleTimeString() + ', ' + dt.toLocaleDateString();
-		var name = document.querySelector("#main > header > div._33QME > div > div > span").textContent;
-		var status = document.querySelector("#main > header > div._33QME > div._2ruUq._3xjAz > span");
+		var name = document.querySelector("#main > header > div._2aNms > div > div > span").textContent;
+		var status = document.querySelector("#main > header > div._2aNms > div._2Gdma._2amHe > span");
 
 		if ((status===null) && (cameOnline===true)){
 			cameOnline = false;
