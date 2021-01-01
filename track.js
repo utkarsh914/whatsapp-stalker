@@ -11,7 +11,7 @@ function f() {
 	try {
 		var dt = new Date();
 		var time = dt.toLocaleTimeString() + ', ' + dt.toLocaleDateString();
-		var name = document.querySelector("#main > header > div._2aNms > div > div > span").textContent;
+		var name = document.querySelector("#main > header > div._2aNms > div._2fKRJ > div > span").textContent;
 		var status = document.querySelector("#main > header > div._2aNms > div._2Gdma._2amHe > span");
 
 		if ((status===null) && (cameOnline===true)){
@@ -70,6 +70,10 @@ function getCSV(data) {
 	document.body.appendChild(link);
 	link.click();
 }
+function resetCSV() {
+	csvContent = "data:text/csv;charset=utf-8,Name,From,To,Duration\n";
+}
+
 function getStalkData() {
 	getCSV(csvContent);
 }
@@ -82,6 +86,16 @@ function putCSVLink() {
 	button.onclick = getStalkData;
 	var sideBar = document.querySelector("#side > header");
 	sideBar.appendChild(button);
+	// create reset csv data button
+	var button2 = document.createElement("button");
+	button2.textContent = "ResetCSV";
+	button2.style.padding = "4px";
+	button2.style.margin = "3px";
+	button2.style.border = "1px solid black";
+	button2.onclick = resetCSV;
+	var sideBar = document.querySelector("#side > header");
+	sideBar.appendChild(button2);
+	
 }
 function toggleStalk() {
 	if (running === -1) {
