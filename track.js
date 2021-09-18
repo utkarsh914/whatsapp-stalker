@@ -9,59 +9,86 @@ var running = -1;
 
 function f() {
 	try {
-		var dt = new Date();
-		var time = dt.toLocaleTimeString() + ', ' + dt.toLocaleDateString();
-		var name = document.querySelector("#main > header > div._24-Ff > div > div > span").textContent;
-		var status = document.querySelector("#main > header > div._24-Ff > div.zzgSd._3e6xi > span");
+		// select all elements first
+		const name = document.querySelector("#main > header > div._24-Ff > div > div > span").textContent;
+		const statusDiv = document.querySelector("#main > header > div._24-Ff > div.zzgSd._3e6xi > span");
+		const dpDiv = document.querySelector("#main > header > div._2YnE3 > div > img");
+		const status = statusDiv ? statusDiv.textContent : null;
+		const dp_url = dpDiv ? dpDiv.src : 'https://img.icons8.com/ios-filled/50/000000/whatsapp.png';
 
-		if ((status===null) && (cameOnline===true)){
+		const dt = new Date();
+		const time = dt.toLocaleTimeString() + ', ' + dt.toLocaleDateString();
+
+		if (status === null && cameOnline === true) {
+
 			cameOnline = false;
 			endtime = new Date().getTime();
-			let diff = parseInt((endtime-starttime)/1000);
-			let duration = `${parseInt(diff/60)} min and ${diff%60} sec`;
+			const diff = parseInt( (endtime - starttime) / 1000 );
+			const duration = `${ parseInt(diff / 60) } min and ${ diff % 60 } sec`;
 			console.log(`${name}: ${time}, Went Offline`);
 			console.log(`Duration: ${duration}`);
-			csvContent += `${name},${new Date(starttime).toLocaleTimeString()},${new Date(endtime).toLocaleTimeString()},${duration}\n`;
+
+			const startDate = new Date(starttime).toLocaleTimeString();
+			const endDate = new Date(endtime).toLocaleTimeString();
+			// add to CSV
+			csvContent += `${name},${startDate},${endDate},${duration}\n`;
+			// send notification
 			if (checkPermission()) {
-				let d = new Date(endtime);
 				let notif = new Notification(`${name} went offline`, {
-					icon: 'https://img.icons8.com/ios-filled/50/000000/whatsapp.png',
-					body: `from ${new Date(starttime).toLocaleTimeString()} to ${new Date(endtime).toLocaleTimeString()}\n Duration: ${duration}`
+					icon: dp_url,
+					body: `from ${startDate} to ${endDate}\n Duration: ${duration}`
 				});
 			}
-			return;
 		}
-		else if ((status.textContent==="online" || status.textContent==="typing…") && (cameOnline===false)){
+
+		else if ((status === "online" || status === "typing…")
+			&& (cameOnline === false)) {
+
 			cameOnline = true;
 			starttime = new Date().getTime();
+			const startDate = new Date(starttime).toLocaleTimeString();
+			const endDate = new Date(endtime).toLocaleTimeString();
 			console.log(`${name}: ${time}, Came online`);
+			// send notification
 			if (checkPermission()) {
-				var notif = new Notification(`${name} came online`, {
-					icon: 'https://img.icons8.com/ios-filled/50/000000/whatsapp.png',
-					body: `Time: ${new Date(starttime).toLocaleTimeString()}, ${new Date(starttime).toLocaleDateString()}\n`
+				let notif = new Notification(`${name} came online`, {
+					icon: dp_url,
+					body: `Time: ${startDate}, ${endDate}\n`
 				});
 			}
 		}
 	}
-	catch(err) { return }
+
+	catch(err) {
+		return;
+	}
 }
 
+
+
 function stalk() {
-	try{
+	try {
 		if (!buttonAdded) {
-		putCSVLink();
-		putStopStalkButton();
-		buttonAdded = true;
-		checkPermission();
+			putCSVLink();
+			putStopStalkButton();
+			buttonAdded = true;
+			checkPermission();
+		}
 	}
-	}catch(e){}
+	catch (e){
+
+	}
 
 	running = setInterval(f, 1000);
 	alert("Stalking!");
 	console.log("Stalking!");
-	alert("Provide permission if you want to get notifications when a user is online/offline.\n\nYou can turn notifications off if you don't want to recieve them");
+	alert("Provide permission if you want to get notifications when a user is online/offline.\
+		\n\nYou can turn notifications off later if you don't want to recieve them");
 	return running;
 }
+
+
+
 function getCSV(data) {
 	data = encodeURI(data);
 	let link = document.createElement("a");
@@ -70,13 +97,21 @@ function getCSV(data) {
 	document.body.appendChild(link);
 	link.click();
 }
+
+
+
 function resetCSV() {
 	csvContent = "data:text/csv;charset=utf-8,Name,From,To,Duration\n";
 }
 
+
+
 function getStalkData() {
 	getCSV(csvContent);
 }
+
+
+
 function putCSVLink() {
 	var button = document.createElement("button");
 	button.textContent = "GetCSV";
@@ -97,6 +132,9 @@ function putCSVLink() {
 	sideBar.appendChild(button2);
 	
 }
+
+
+
 function toggleStalk() {
 	if (running === -1) {
 		stalk();
@@ -109,6 +147,9 @@ function toggleStalk() {
 		this.textContent = "Stalk";
 	}
 }
+
+
+
 function putStopStalkButton() {
 	var button = document.createElement("button");
 	button.style.padding = "4px";
@@ -119,10 +160,15 @@ function putStopStalkButton() {
 	var sideBar = document.querySelector("#side > header");
 	sideBar.appendChild(button);
 }
+
+
+
 stalk();
 
+
+
 function checkPermission() {
-	if (!("Notification"in window)) {
+	if (!("Notification" in window)) {
 		return false;
 	}
 	else if (Notification.permission === "granted") {
